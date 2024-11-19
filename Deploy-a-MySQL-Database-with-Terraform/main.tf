@@ -15,8 +15,8 @@ provider "azurerm" {
 
 resource "azurerm_mysql_server" "example" {
   name                = "tflab-mysqlserver-1-app01"
-  location            = "East US"
-  resource_group_name = "186-599a5fe3-deploy-a-mysql-database-with-terrafor"
+  location            = var.location
+  resource_group_name = var.rsgname
 
   sku_name = "B_Gen5_2"
   # capacity = "2"
@@ -37,7 +37,7 @@ resource "azurerm_mysql_server" "example" {
 
 resource "azurerm_mysql_database" "example" {
   name                = "appdb01"
-  resource_group_name = "186-599a5fe3-deploy-a-mysql-database-with-terrafor"
+  resource_group_name = var.rsgname
   server_name         = azurerm_mysql_server.example.name
   charset             = "utf8"
   collation           = "utf8_unicode_ci"

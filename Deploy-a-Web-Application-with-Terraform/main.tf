@@ -15,8 +15,8 @@ provider "azurerm" {
 
 resource "azurerm_app_service_plan" "svcplan" {
   name                = "vikarblog-appserviceplan"
-  location            = "eastus"
-  resource_group_name = "191-171c9aa8-deploy-a-web-application-with-terrafo"
+  location            = var.location
+  resource_group_name = var.rsgname
 
   sku {
     tier = "Standard"
@@ -26,8 +26,8 @@ resource "azurerm_app_service_plan" "svcplan" {
 
 resource "azurerm_app_service" "appsvc" {
   name                = "custom-tf-webapp-for-vikars-blog"
-  location            = "eastus"
-  resource_group_name = "191-171c9aa8-deploy-a-web-application-with-terrafo"
+  location            = var.location
+  resource_group_name = var.rsgname
   app_service_plan_id = azurerm_app_service_plan.svcplan.id
 
 

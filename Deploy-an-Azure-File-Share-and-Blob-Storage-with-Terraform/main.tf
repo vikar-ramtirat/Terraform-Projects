@@ -17,8 +17,8 @@ provider "azurerm" {
 
 resource "azurerm_storage_account" "lab" {
   name                     = "newfileandblob4lab"
-  resource_group_name      = "183-32c39f5c-deploy-an-azure-file-share-and-blob-s"
-  location                 = "East US"
+  resource_group_name      = var.rsgname
+  location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }

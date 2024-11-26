@@ -19,8 +19,8 @@ provider "azurerm" {
 resource "azurerm_virtual_network" "TFNet" {
     name                = "TFVnet"
     address_space       = ["10.0.0.0/16"]
-    location            = "East US"
-    resource_group_name = "187-b29480d9-deploying-an-azure-vm-with-terraform"
+    location            = var.location
+    resource_group_name = var.rsgname
 
     tags = {
         environment = "Terraform VNET"
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network" "TFNet" {
 # Create subnet
 resource "azurerm_subnet" "tfsubnet" {
     name                 = "default"
-    resource_group_name = "187-b29480d9-deploying-an-azure-vm-with-terraform"
+    resource_group_name = var.rsgname
     virtual_network_name = azurerm_virtual_network.TFNet.name
     address_prefixes       = ["10.0.1.0/24"]
 }
@@ -37,8 +37,8 @@ resource "azurerm_subnet" "tfsubnet" {
 #Deploy Public IP
 resource "azurerm_public_ip" "example" {
   name                = "pubip1"
-  location            = "East US"
-  resource_group_name = "187-b29480d9-deploying-an-azure-vm-with-terraform"
+  location            = var.location
+  resource_group_name = var.rsgname
   allocation_method   = "Dynamic"
   sku                 = "Basic"
 }
@@ -46,8 +46,8 @@ resource "azurerm_public_ip" "example" {
 #Create NIC
 resource "azurerm_network_interface" "example" {
   name                = "robot-nic"
-  location            = "East US"
-  resource_group_name = "187-b29480d9-deploying-an-azure-vm-with-terraform"
+  location            = var.location
+  resource_group_name = var.rsgname
 
     ip_configuration {
     name                          = "ipconfig1"
@@ -60,8 +60,8 @@ resource "azurerm_network_interface" "example" {
 #Create Boot Diagnostic Account
 resource "azurerm_storage_account" "sa" {
   name                     = "robodiags4tflab"
-  resource_group_name      = "187-b29480d9-deploying-an-azure-vm-with-terraform"
-  location                 = "East US"
+  resource_group_name      = var.rsgname
+  location                 = var.location
    account_tier            = "Standard"
    account_replication_type = "LRS"
 
@@ -74,8 +74,8 @@ resource "azurerm_storage_account" "sa" {
 #Create Virtual Machine
 resource "azurerm_virtual_machine" "example" {
   name                  = "robot"
-  location              = "East US"
-  resource_group_name   = "187-b29480d9-deploying-an-azure-vm-with-terraform"
+  location              = var.location
+  resource_group_name   = var.rsgname
   network_interface_ids = [azurerm_network_interface.example.id]
   vm_size               = "Standard_B1s"
   delete_os_disk_on_termination = true

@@ -16,8 +16,8 @@ provider "azurerm" {
 }
 resource "azurerm_storage_account" "lab" {
   name                     = "vikarterraformstorage01"
-  resource_group_name      = "156-95c402ab-deploy-an-azure-storage-account-with"
-  location                 = "East US"
+  resource_group_name      = var.rsgname
+  location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 

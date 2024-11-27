@@ -16,7 +16,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_storage_account" "lab" {
-  name                     = "newfileandblob4lab"
+  name                     = var.stgacname
   resource_group_name      = var.rsgname
   location                 = var.location
   account_tier             = "Standard"
@@ -25,7 +25,7 @@ resource "azurerm_storage_account" "lab" {
 
 resource "azurerm_storage_container" "lab" {
   name                  = "blobcontainer4lab"
-  storage_account_name  = azurerm_storage_account.lab.name
+  storage_account_id  = azurerm_storage_account.lab.name
   container_access_type = "private"
 }
 
@@ -37,6 +37,6 @@ resource "azurerm_storage_blob" "lab" {
 }
 resource "azurerm_storage_share" "lab" {
   name                 = "terraformshare"  
-  storage_account_name = azurerm_storage_account.lab.name
+  storage_account_id = azurerm_storage_account.lab.name
   quota                = 50
 }

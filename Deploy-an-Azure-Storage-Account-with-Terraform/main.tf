@@ -15,7 +15,7 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 resource "azurerm_storage_account" "lab" {
-  name                     = "vikarterraformstorage01"
+  name                     = var.stgactname
   resource_group_name      = var.rsgname
   location                 = var.location
   account_tier             = "Standard"

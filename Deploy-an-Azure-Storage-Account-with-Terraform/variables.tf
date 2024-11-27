@@ -9,3 +9,9 @@ variable "rsgname" {
   description = "resource group name"
   default = "156-95c402ab-deploy-an-azure-storage-account-with"
 }
+
+variable "stgactname" {
+  type = string
+  description = "Storage Account Name"
+
+  }
